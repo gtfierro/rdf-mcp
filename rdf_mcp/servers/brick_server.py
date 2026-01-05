@@ -1,14 +1,28 @@
 from mcp.server.fastmcp import FastMCP
-from rdflib import Graph, URIRef, Literal, Namespace, BRICK, RDFS
+from rdflib import Graph, URIRef, Literal, Namespace, BRICK, RDFS, OWL, SKOS
 from rdflib.term import Variable
 from typing import List, Optional
 from rdf_mcp.utils.smash import smash_distance
+from rdf_mcp.utils import ClassEmbedder
 import sys
 
 mcp = FastMCP("GraphDemo", dependencies=["rdflib", "oxrdflib"])
 
 S223 = Namespace("http://data.ashrae.org/standard223#")
-ontology = Graph().parse("https://brickschema.org/schema/1.4/Brick.ttl")
+ontology = Graph().parse("https://github.com/BrickSchema/Brick/releases/download/nightly/Brick.ttl", format="ttl")
+
+emb = ClassEmbedder(
+  ontology,
+  [BRICK.Entity],
+  [RDFS.label, SKOS.definition],
+)
+
+
+@mcp.tool()
+def guess_class(text: str) -> list[tuple[str, float]]:
+    """Guess the most likely Brick classes for a given text input"""
+    results = emb.get(text, n=5)
+    return [(uri, score) for uri, score in results]
 
 
 @mcp.tool()

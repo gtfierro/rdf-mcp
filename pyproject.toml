@@ -8,6 +8,10 @@ dependencies = [
     "mcp[cli]>=1.6.0",
     "oxrdflib>=0.4.0",
     "rdflib>=7.1.4",
+    "txtai",
+    "gradio>=4.0.0",
+    "typer>=0.15.2",
+    "ontoenv>=0.4.0",
 ]
 
 #[tool.uv.sources]
@@ -43,6 +47,7 @@ testpaths = ["tests"]
 
 [project.scripts]
 s223-server = "rdf_mcp.servers.s223_server:main"
+watr-server = "rdf_mcp.servers.watr_server:main"
 brick-server = "rdf_mcp.servers.brick_server:main"
 
 [build-system]

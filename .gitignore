@@ -32,8 +32,13 @@ env.bak/
 venv.bak/                                                                                                                                                                                            
                                                                                                                                                                                                      
 # IDE specific files                                                                                                                                                                                 
-.idea/                                                                                                                                                                                               
-.vscode/                                                                                                                                                                                             
-*.swp                                                                                                                                                                                                
-*.swo                                                                                                                                                                                                
-.DS_Store  
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/  
